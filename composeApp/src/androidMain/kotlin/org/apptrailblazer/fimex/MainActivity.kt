@@ -4,10 +4,8 @@ import App
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
-import androidx.compose.ui.tooling.preview.Preview
 import com.seiko.imageloader.ImageLoader
 import com.seiko.imageloader.LocalImageLoader
 import com.seiko.imageloader.cache.memory.maxSizePercent
@@ -53,8 +51,3 @@ class MainActivity : ComponentActivity() {
 
 }
 
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
-}

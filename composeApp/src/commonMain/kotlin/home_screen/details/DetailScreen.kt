@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 
-data class DetailScreen(val number: Int) : Screen {
+data class DetailScreen(val productInfo: String) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
@@ -40,7 +40,7 @@ data class DetailScreen(val number: Int) : Screen {
                 contentAlignment = Alignment.Center
             ) {
                 Button(onClick = { }){
-                    Text("Detail Screen ($number)")
+                    Text("Detail Screen ($productInfo)")
                 }
             }
         }
