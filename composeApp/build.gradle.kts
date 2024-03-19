@@ -51,6 +51,7 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.mvvm.core)
+            implementation (libs.accompanist.pager)
 
             api(libs.image.loader)
         }

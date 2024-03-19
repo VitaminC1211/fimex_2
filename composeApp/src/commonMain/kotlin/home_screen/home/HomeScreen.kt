@@ -15,13 +15,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -30,6 +39,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -54,6 +65,15 @@ class HomeScreen : Screen {
         val selectedServiceImages: MutableStateFlow<List<InnerImage?>> = MutableStateFlow(listOf())
 
         BoxWithConstraints {
+
+            val images = listOf(
+                "https://www.zdnet.com/a/img/resize/44ee30136face6dcb90fe8ed96dc180a3a41a878/2023/09/12/29be3e47-9f70-4dbe-aa37-58719088b48f/old-iphones-apple-store.jpg?auto=webp&width=1280",
+                "https://imageio.forbes.com/specials-images/imageserve/6578eb5f8e31d8383c4f069c/hands-with-smartphones/960x0.jpg?format=jpg&width=1440",
+                "https://www.zdnet.com/a/img/resize/cb913fdf4fb4a92b2baf2b50c2a93a1b20d3c142/2023/09/22/4117cf65-90cd-4d96-82f9-377ff2fe6198/iphone-15-optimized-charging-screen.jpg?auto=webp&width=1280",
+                "https://www.zdnet.com/a/img/resize/631dfd408a6c443445138394a03d2ff72f75b585/2024/03/04/1bbf5bb9-bde9-49c2-81b9-9a59d5e487ca/dsc09973-2.jpg?auto=webp&width=1280"
+            )
+
+
             val scope = this
             val maxWith = scope.maxWidth
 
@@ -72,6 +92,45 @@ class HomeScreen : Screen {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
             ) {
+
+                var searchText by remember { mutableStateOf(TextFieldValue()) }
+
+                TextField(
+                    value = searchText,
+                    onValueChange = { searchText = it },
+                    placeholder = { Text("Search...") },
+                    colors = TextFieldDefaults.textFieldColors(
+                        cursorColor = Color.Black, // Change cursor line color to black
+                        focusedIndicatorColor = Color.Transparent, // Remove focused indicator
+                        unfocusedIndicatorColor = Color.Transparent // Remove unfocused indicator
+                    ),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "Search Icon",
+                            tint = Color.Black // Set the color of the search icon to black
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                )
+
+                LazyRow(
+                    state = rememberLazyListState(),
+                    modifier = Modifier.fillMaxWidth().height(100.dp)
+                ) {
+                    itemsIndexed(images) { index, image ->
+                        // You can display each image here
+                        // For example:
+                        Image(
+                            painter = rememberImagePainter(image),
+                            contentDescription = null, // Add appropriate content description
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+                }
+
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(cols),
                     state = scrollState,
@@ -182,7 +241,7 @@ class HomeScreen : Screen {
                                                 rememberImagePainter(url = selectedService?.image.toString())
                                             Image(
                                                 painter,
-                                                modifier = Modifier.height(200.dp).padding(8.dp),
+                                                modifier = Modifier.height(300.dp).padding(8.dp),
                                                 contentDescription = selectedService?.image.toString()
                                             )
                                         }
