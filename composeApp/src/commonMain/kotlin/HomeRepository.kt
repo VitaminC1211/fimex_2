@@ -1,17 +1,17 @@
 import apiClient.httpClient
-import data.Product
+import data.Services
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import kotlinx.coroutines.flow.flow
 
 class HomeRepository {
 
-    suspend fun getProductsApi(): List<Product>{
-        val response = httpClient.get("https://fakestoreapi.com/products")
+    suspend fun getServiceItem(): List<Services>{
+        val response = httpClient.get("http://103.35.189.138:3005")
         return response.body()
     }
 
-    fun getProducts() = flow{
-        emit(getProductsApi())
+    fun getService() = flow{
+        emit(getServiceItem())
     }
 }

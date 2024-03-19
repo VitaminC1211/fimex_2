@@ -7,12 +7,10 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,9 +21,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Card
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -39,22 +35,14 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import com.seiko.imageloader.rememberImagePainter
-import data.Rating
-import home_screen.details.DetailScreen
+import data.InnerImage
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class HomeScreen : Screen {
 
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-//        Box(
-//            modifier = Modifier.fillMaxSize(),
-//            contentAlignment = Alignment.Center
-//        ) {
-//            Button(onClick = { navigator?.push(DetailScreen(number = 10)) }) {
-//                Text("GO")
-//            }
-//        }
         AppContent(homeViewModel = HomeViewModel(), navigator = navigator)
     }
 
@@ -62,14 +50,15 @@ class HomeScreen : Screen {
     fun AppContent(homeViewModel: HomeViewModel, navigator: Navigator?) {
 
         var showDetailScreen by remember { mutableStateOf(false) }
-        val products = homeViewModel.products.collectAsState()
-        var selectedProductRating by remember { mutableStateOf<Rating?>(null)}
+        val services = homeViewModel.service.collectAsState()
+        val selectedServiceImages: MutableStateFlow<List<InnerImage?>> = MutableStateFlow(listOf())
 
         BoxWithConstraints {
             val scope = this
             val maxWith = scope.maxWidth
 
             var cols = 4
+            var detail_cols = 2
             var modifier = Modifier.fillMaxWidth()
             if (maxWith > 840.dp) {
                 cols = 3
@@ -95,8 +84,8 @@ class HomeScreen : Screen {
                     }
 
                     items(
-                        items = products.value,
-                        key = { product -> product.id.toString() }) { product ->
+                        items = services.value,
+                        key = { service -> service.id.toString() }) { service ->
                         Card(
                             shape = RoundedCornerShape(15.dp),
                             modifier = Modifier
@@ -105,7 +94,7 @@ class HomeScreen : Screen {
                                 .clickable {
 //                                    val navigator = navigator
 //                                    navigator?.push(DetailScreen(productInfo = product.id.toString()))
-                                    selectedProductRating = product.rating
+                                    selectedServiceImages.value = service.innerImage!!
                                     showDetailScreen = !showDetailScreen
                                 },
                             elevation = 2.dp
@@ -114,11 +103,11 @@ class HomeScreen : Screen {
                                 verticalArrangement = Arrangement.Center,
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
-                                val painter = rememberImagePainter(url = product.image.toString())
+                                val painter = rememberImagePainter(url = service.image.toString())
                                 Image(
                                     painter,
                                     modifier = Modifier.height(60.dp).padding(8.dp),
-                                    contentDescription = product.title
+                                    contentDescription = service.image.toString()
                                 )
 //                                Text(
 //                                    product.title.toString(),
@@ -142,19 +131,63 @@ class HomeScreen : Screen {
                 }
                 if (showDetailScreen) {
                     AnimatedVisibility(
-                        visible = showDetailScreen && selectedProductRating != null,
+                        visible = showDetailScreen && selectedServiceImages != null,
                         enter = slideInVertically(initialOffsetY = { it }),
                         exit = slideOutVertically(targetOffsetY = { it })
-                    ){
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight()
+                    ) {
+//                        Box(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .fillMaxHeight()
+//                        ) {
+//                            Button(onClick = {
+//                                navigator?.push(DetailScreen(productInfo = selectedServiceImages.toString()))
+//                            }) {
+//                                Text("Detail Screen{$selectedServiceImages}")
+//                            }
+//                        }
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxWidth()
                         ) {
-                            Button(onClick = {
-                                navigator?.push(DetailScreen(productInfo = selectedProductRating!!.rate.toString()))
-                            }) {
-                                Text("Detail Screen{$selectedProductRating}")
+                            LazyVerticalGrid(
+                                columns = GridCells.Fixed(detail_cols),
+                                state = scrollState,
+                                contentPadding = PaddingValues(16.dp)
+                            ) {
+                                item(span = { GridItemSpan(detail_cols) }) {
+                                    Column {
+                                        Spacer(modifier = Modifier.height(16.dp))
+                                    }
+                                }
+                                items(
+                                    items = selectedServiceImages.value,
+                                    key = { selectedService -> selectedService?.id.toString() }
+                                ) { selectedService ->
+                                    Card(
+                                        shape = RoundedCornerShape(15.dp),
+                                        modifier = Modifier
+                                            .padding(8.dp)
+                                            .fillMaxWidth()
+                                            .clickable {
+                                            },
+                                        elevation = 2.dp
+                                    ) {
+                                        Column(
+                                            verticalArrangement = Arrangement.Center,
+                                            horizontalAlignment = Alignment.CenterHorizontally
+                                        ) {
+                                            val painter =
+                                                rememberImagePainter(url = selectedService?.image.toString())
+                                            Image(
+                                                painter,
+                                                modifier = Modifier.height(200.dp).padding(8.dp),
+                                                contentDescription = selectedService?.image.toString()
+                                            )
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
