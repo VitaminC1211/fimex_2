@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
@@ -41,12 +42,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import com.seiko.imageloader.rememberImagePainter
 import data.InnerImage
+import data.InnerInfo
+import home_screen.details.DetailScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class HomeScreen : Screen {
@@ -63,6 +67,7 @@ class HomeScreen : Screen {
         var showDetailScreen by remember { mutableStateOf(false) }
         val services = homeViewModel.service.collectAsState()
         val selectedServiceImages: MutableStateFlow<List<InnerImage?>> = MutableStateFlow(listOf())
+        val selectedPhoneIcon: MutableStateFlow<List<InnerInfo?>> = MutableStateFlow(listOf())
 
         BoxWithConstraints {
 
@@ -100,7 +105,7 @@ class HomeScreen : Screen {
                     onValueChange = { searchText = it },
                     placeholder = { Text("Search...") },
                     colors = TextFieldDefaults.textFieldColors(
-                        cursorColor = Color.Black, // Change cursor line color to black
+                        cursorColor = Color.Gray, // Change cursor line color to black
                         focusedIndicatorColor = Color.Transparent, // Remove focused indicator
                         unfocusedIndicatorColor = Color.Transparent // Remove unfocused indicator
                     ),
@@ -111,14 +116,16 @@ class HomeScreen : Screen {
                             tint = Color.Black // Set the color of the search icon to black
                         )
                     },
+                    shape = RoundedCornerShape(15.dp),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp)
+                        .padding(20.dp)
+                        .height(50.dp)
                 )
 
                 LazyRow(
                     state = rememberLazyListState(),
-                    modifier = Modifier.fillMaxWidth().height(100.dp)
+                    modifier = Modifier.fillMaxWidth().height(150.dp)
                 ) {
                     itemsIndexed(images) { index, image ->
                         // You can display each image here
@@ -134,7 +141,7 @@ class HomeScreen : Screen {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(cols),
                     state = scrollState,
-                    contentPadding = PaddingValues(16.dp)
+                    contentPadding = PaddingValues(16.dp),
                 ) {
                     item(span = { GridItemSpan(cols) }) {
                         Column {
@@ -213,7 +220,8 @@ class HomeScreen : Screen {
                             LazyVerticalGrid(
                                 columns = GridCells.Fixed(detail_cols),
                                 state = scrollState,
-                                contentPadding = PaddingValues(16.dp)
+                                contentPadding = PaddingValues(16.dp),
+                                modifier = Modifier.padding(bottom = 50.dp)
                             ) {
                                 item(span = { GridItemSpan(detail_cols) }) {
                                     Column {
@@ -230,6 +238,8 @@ class HomeScreen : Screen {
                                             .padding(8.dp)
                                             .fillMaxWidth()
                                             .clickable {
+                                                selectedPhoneIcon.value = selectedService?.innerInfo!!
+                                                navigator?.push(DetailScreen(selectedPIcon = MutableStateFlow(selectedPhoneIcon.value)))
                                             },
                                         elevation = 2.dp
                                     ) {
@@ -241,8 +251,15 @@ class HomeScreen : Screen {
                                                 rememberImagePainter(url = selectedService?.image.toString())
                                             Image(
                                                 painter,
-                                                modifier = Modifier.height(300.dp).padding(8.dp),
+                                                modifier = Modifier.height(100.dp).padding(8.dp),
                                                 contentDescription = selectedService?.image.toString()
+                                            )
+                                            Text(
+                                                selectedService?.description.toString(),
+                                                maxLines = 2,
+                                                overflow = TextOverflow.Ellipsis,
+                                                modifier = Modifier.padding(8.dp)
+                                                    .heightIn(min = 20.dp)
                                             )
                                         }
                                     }
