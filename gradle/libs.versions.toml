@@ -19,10 +19,14 @@ kotlin = "1.9.22"
 kotlinCoroutinesCore = " 1.8.0"
 kotlinxCoroutinesCore = "1.7.3"
 kotlinxSerializationJson = "1.6.2"
+kotlinxSerializationJsonVersion = "1.3.0"
 ktor = "2.3.9"
+ktorClientCio = "2.3.9"
 ktorClientContentNegotiation = "2.3.7"
 ktorClientCore = "2.3.7"
+ktorClientCoreVersion = "1.6.10"
 ktorClientDarwin = "2.3.5"
+ktorClientJson = "1.6.10"
 logback = "1.5.3"
 fimex_clone = "1.0.0"
 mvvmCore = "0.16.1"
@@ -46,10 +50,20 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-serialization-json-v130 = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientDarwin" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCoreVersion" }
+ktor-client-cio-v239 = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientContentNegotiation" }
+ktor-client-core-v1610 = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCoreVersion" }
 ktor-client-core-v237 = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClientDarwin" }
+ktor-client-json = { module = "io.ktor:ktor-client-json", version.ref = "ktor" }
+ktor-client-json-v1610 = { module = "io.ktor:ktor-client-json", version.ref = "ktorClientJson" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientCoreVersion" }
+ktor-client-logging-jvm = { module = "io.ktor:ktor-client-logging-jvm", version.ref = "ktorClientCoreVersion" }
+ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorClientCoreVersion" }
+ktor-client-serialization-jvm = { module = "io.ktor:ktor-client-serialization-jvm", version.ref = "ktorClientCoreVersion" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientContentNegotiation" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }

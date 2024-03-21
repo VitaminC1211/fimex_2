@@ -46,10 +46,12 @@ kotlin {
             implementation(libs.navigator.transitions)
 
             implementation(libs.kotlinx.coroutines.core)
-            implementation (libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.serialization.json)
             implementation(libs.ktor.client.core.v237)
+            implementation(libs.ktor.client.cio.v239)
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.json)
             implementation(libs.mvvm.core)
             implementation (libs.accompanist.pager)
 
