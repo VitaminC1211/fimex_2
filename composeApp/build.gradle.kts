@@ -55,6 +55,9 @@ kotlin {
             implementation(libs.mvvm.core)
             implementation (libs.accompanist.pager)
 
+            //lottie
+            implementation (libs.lottie)
+
             api(libs.image.loader)
         }
         androidMain.dependencies {

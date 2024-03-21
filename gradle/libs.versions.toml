@@ -29,6 +29,7 @@ ktorClientDarwin = "2.3.5"
 ktorClientJson = "1.6.10"
 logback = "1.5.3"
 fimex_clone = "1.0.0"
+lottieCompose = "5.2.0"
 mvvmCore = "0.16.1"
 material3Android = "1.2.1"
 
@@ -69,6 +70,8 @@ logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottieCompose" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "mvvmCore" }
 navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "fimex_clone" }
 navigator-tabs = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "fimex_clone" }

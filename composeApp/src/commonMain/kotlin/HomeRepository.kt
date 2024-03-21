@@ -29,8 +29,18 @@ class HomeRepository {
     }
 
     //Login
-    suspend fun sendLoginDataToBackend(user: Login){
+    suspend fun sendLoginDataToBackend(login: Login){
+        val jsonBody = Json.encodeToString(login)
 
+        println("JSON Body1: $jsonBody")
+
+        val client = HttpClient(CIO)
+        val response: HttpResponse = client.post("http://103.35.189.138:3005/user/login") {
+            contentType(ContentType.Application.Json)
+            setBody(jsonBody)
+
+            println("JSON Body2: $jsonBody")
+        }
     }
 
     //Register
@@ -41,7 +51,7 @@ class HomeRepository {
         println("JSON Body1: $jsonBody")
 
         val client = HttpClient(CIO)
-        val response: HttpResponse = client.post("http://103.35.189.138:3005/api/data") {
+        val response: HttpResponse = client.post("http://103.35.189.138:3005/user/register") {
             contentType(ContentType.Application.Json)
             setBody(jsonBody)
 

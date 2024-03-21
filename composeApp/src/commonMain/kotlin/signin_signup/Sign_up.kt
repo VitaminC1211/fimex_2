@@ -3,16 +3,11 @@ package signin_signup
 import HomeRepository
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -21,25 +16,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.tab.CurrentTab
-import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
-import cafe.adriel.voyager.navigator.tab.Tab
-import cafe.adriel.voyager.navigator.tab.TabNavigator
+import cafe.adriel.voyager.navigator.LocalNavigator
 import data.Register
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
-import tab.cart.CartTab
-import tab.home.HomeTab
-import tab.profile.ProfileTab
 
-class Sign_up : Screen{
+class Sign_up : Screen {
     @Composable
     override fun Content() {
         var flag by remember { mutableStateOf(false) }
@@ -75,10 +63,10 @@ class Sign_up : Screen{
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = {
-                        val user = Register(id, name, email, password)
+                        val register = Register(id, name, email, password)
                         val homeRepository = HomeRepository()
                         CoroutineScope(Dispatchers.IO).launch {
-                            homeRepository.sendRegisterDataToBackend(user)
+                            homeRepository.sendRegisterDataToBackend(register)
                         }
 
                         flag = true
@@ -91,43 +79,8 @@ class Sign_up : Screen{
 
 
         if (flag) {
-            TabNavigator(HomeTab) {
-                Scaffold(
-                    bottomBar = {
-                        BottomNavigation(
-                            backgroundColor = Color.White
-                        ) {
-                            TabNavigationItem(HomeTab)
-                            TabNavigationItem(CartTab)
-                            TabNavigationItem(ProfileTab)
-                        }
-                    }
-                ) {
-                    CurrentTab()
-                }
-            }
-//        Navigator(HomeScreen()) { navigator ->
-//            SlideTransition(navigator)
-//        }
+            val navigator = LocalNavigator.current
+            navigator?.push(Sign_in())
         }
     }
-}
-
-@Composable
-private fun RowScope.TabNavigationItem(tab: Tab) {
-    val tabNavigator = LocalTabNavigator.current
-    BottomNavigationItem(
-        selected = tabNavigator.current == tab,
-        onClick = { tabNavigator.current = tab },
-//        label = { Text(tab.options.title ?: "") },
-        icon = {
-            tab.options.icon?.let { icon ->
-                Icon(
-                    painter = icon,
-                    contentDescription = tab.options.title ?: "",
-                    tint = Color.Black
-                )
-            }
-        }
-    )
 }
