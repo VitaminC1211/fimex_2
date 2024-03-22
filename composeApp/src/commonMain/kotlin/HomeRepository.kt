@@ -35,7 +35,7 @@ class HomeRepository {
         println("JSON Body1: $jsonBody")
 
         val client = HttpClient(CIO)
-        val response: HttpResponse = client.post("http://103.35.189.138:3005/user/login") {
+        val response: HttpResponse = client.post("http://103.35.189.138:3005/api/users/login") {
             contentType(ContentType.Application.Json)
             setBody(jsonBody)
 
@@ -51,7 +51,7 @@ class HomeRepository {
         println("JSON Body1: $jsonBody")
 
         val client = HttpClient(CIO)
-        val response: HttpResponse = client.post("http://103.35.189.138:3005/user/register") {
+        val response: HttpResponse = client.post("http://103.35.189.138:3005/api/users/register") {
             contentType(ContentType.Application.Json)
             setBody(jsonBody)
 

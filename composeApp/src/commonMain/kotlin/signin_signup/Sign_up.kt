@@ -36,6 +36,7 @@ class Sign_up : Screen {
         var name by remember { mutableStateOf("") }
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
+        var confpassword by remember { mutableStateOf("") }
 
         Box {
             Column(
@@ -60,10 +61,18 @@ class Sign_up : Screen {
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                 )
+                Spacer(modifier = Modifier.height(8.dp))
+                TextField(
+                    value = confpassword,
+                    onValueChange = { confpassword = it },
+                    label = { Text("Confirm Password") },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = {
-                        val register = Register(id, name, email, password)
+                        val register = Register( name, email, password)
                         val homeRepository = HomeRepository()
                         CoroutineScope(Dispatchers.IO).launch {
                             homeRepository.sendRegisterDataToBackend(register)

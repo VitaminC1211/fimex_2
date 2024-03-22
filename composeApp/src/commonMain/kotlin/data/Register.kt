@@ -5,12 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Register(
-    @SerialName("id")
-    var id: Int?,
-    @SerialName("Name")
+    @SerialName("name")
     var name: String?,
-    @SerialName("Gmail")
+    @SerialName("email")
     var gmail: String?,
-    @SerialName("Password")
+    @SerialName("password")
     var password: String?
 )
