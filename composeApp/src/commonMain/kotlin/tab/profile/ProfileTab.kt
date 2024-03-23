@@ -14,13 +14,14 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 
 object  ProfileTab : Tab {
+    lateinit var namevalue: String
     @Composable
     override fun Content() {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            Text("Profile Tab")
+            Text("Profile Tab$namevalue")
         }
     }
 

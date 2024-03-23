@@ -16,7 +16,7 @@ object HomeTab : Tab {
     @OptIn(ExperimentalResourceApi::class)
     @Composable
     override fun Content() {
-        
+
         Navigator(HomeScreen()) { navigator ->
             SlideTransition(navigator)
         }
@@ -37,4 +37,5 @@ object HomeTab : Tab {
                 )
             }
         }
+
 }

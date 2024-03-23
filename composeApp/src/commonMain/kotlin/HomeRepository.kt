@@ -29,33 +29,34 @@ class HomeRepository {
     }
 
     //Login
-    suspend fun sendLoginDataToBackend(login: Login){
+    suspend fun sendLoginDataToBackend(login: Login): String{
         val jsonBody = Json.encodeToString(login)
-
-        println("JSON Body1: $jsonBody")
 
         val client = HttpClient(CIO)
         val response: HttpResponse = client.post("http://103.35.189.138:3005/api/users/login") {
             contentType(ContentType.Application.Json)
             setBody(jsonBody)
-
-            println("JSON Body2: $jsonBody")
         }
+        val res = response.body<String>()
+        println("LOGINRES:$res");
+        return res
     }
 
+
     //Register
-    suspend fun sendRegisterDataToBackend(user: Register){
+    suspend fun sendRegisterDataToBackend(user: Register) : String{
 
         val jsonBody = Json.encodeToString(user)
-
-        println("JSON Body1: $jsonBody")
 
         val client = HttpClient(CIO)
         val response: HttpResponse = client.post("http://103.35.189.138:3005/api/users/register") {
             contentType(ContentType.Application.Json)
             setBody(jsonBody)
-
-            println("JSON Body2: $jsonBody")
         }
+        val res = response.body<String>()
+
+        println("_____response from the server_____:$res")
+
+        return res
     }
 }
