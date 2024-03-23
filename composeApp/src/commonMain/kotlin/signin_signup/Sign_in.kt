@@ -121,9 +121,9 @@ class Sign_in() : Screen{
                                 }
                                 if (loginResponse == "0") {
                                     didntRegister = true
-                                } else
-                                {
-                                    flag = true
+                                }
+                                if (loginResponse != "1" && loginResponse != "0"){
+                                    flag =true
                                     ProfileTab.namevalue = loginResponse
                                 }
                             }
@@ -154,7 +154,7 @@ class Sign_in() : Screen{
         }
 
         if(loginWrongPass){
-
+            passwordError = "Wrong password!"
         }
         if(didntRegister){
             val navigator = LocalNavigator.current

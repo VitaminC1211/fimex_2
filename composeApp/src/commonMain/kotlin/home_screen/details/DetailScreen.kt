@@ -119,6 +119,10 @@ data class DetailScreen(
 
             if (showDetailScreen) {
                 ModalBottomSheetLayout(
+                    // Bottom sheet content
+                    sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded),
+                    sheetShape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp),
+                    modifier = Modifier.fillMaxSize(),
                     sheetContent = {
                         // Content of the bottom sheet
                         LazyVerticalGrid(
@@ -184,10 +188,7 @@ data class DetailScreen(
                                 }
                             }
                         )
-                    },
-                    sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded),
-                    sheetShape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp),
-                    modifier = Modifier.fillMaxSize()
+                    }
                 ) {
 
                 }
