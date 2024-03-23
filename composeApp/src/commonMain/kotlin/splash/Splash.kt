@@ -38,7 +38,7 @@ class Splash : Screen{
 //               modifier = Modifier.size(400.dp)
 //               ,anim = R.
 //           )
-            Text("Hi")
+            Text("Welcome to Fimex_clone")
         }
     }
     private @Composable
