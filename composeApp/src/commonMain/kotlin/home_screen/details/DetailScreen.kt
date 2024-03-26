@@ -174,7 +174,7 @@ data class DetailScreen(
                                                         }
                                                     ) {
                                                         Text(
-                                                            country?.text.toString(),
+                                                            country?.price.toString(),
                                                             maxLines = 2,
                                                             overflow = TextOverflow.Ellipsis,
                                                             modifier = Modifier.padding(8.dp)

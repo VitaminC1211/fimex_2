@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 data class CountryPrice(
     @SerialName("id")
     val id: Int?,
-    @SerialName("text")
-    val text: String?
+    @SerialName("price")
+    val price: String?
 )

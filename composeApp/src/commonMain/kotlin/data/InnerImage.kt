@@ -10,8 +10,8 @@ data class InnerImage(
     val description: String?,
     @SerialName("id")
     val id: Int?,
-    @SerialName("image")
-    val image: String?,
+    @SerialName("images")
+    val images: String?,
     @SerialName("inner_info")
     val innerInfo: List<InnerInfo?>?
 )

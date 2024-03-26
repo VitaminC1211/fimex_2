@@ -248,11 +248,11 @@ class HomeScreen : Screen {
                                             horizontalAlignment = Alignment.CenterHorizontally
                                         ) {
                                             val painter =
-                                                rememberImagePainter(url = selectedService?.image.toString())
+                                                rememberImagePainter(url = selectedService?.images.toString())
                                             Image(
                                                 painter,
                                                 modifier = Modifier.height(100.dp).padding(8.dp),
-                                                contentDescription = selectedService?.image.toString()
+                                                contentDescription = selectedService?.images.toString()
                                             )
                                             Text(
                                                 selectedService?.description.toString(),
