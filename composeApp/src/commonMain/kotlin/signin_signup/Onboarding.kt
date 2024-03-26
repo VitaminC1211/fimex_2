@@ -14,7 +14,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -27,22 +26,25 @@ class Onboarding : Screen {
 
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.BottomCenter // Align content to the bottom center
         ) {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = rememberImagePainter("your_image_url"),
+                    painter = rememberImagePainter("https://www.ship2me.co.uk/img/content/main-pic.png"),
                     contentDescription = null,
-                    contentScale = ContentScale.FillBounds
+//                    contentScale = ContentScale.FillBounds
                 )
                 Column(
                     modifier = Modifier
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    Text("Fimex_clone")
+                    Spacer(modifier = Modifier.weight(1f)) // Add spacer to push buttons to the bottom
+                    Text("Purchase with ease!")
                     AnimatedVisibility(visible = true) {
                         Button(
                             onClick = { navigator?.push(Sign_in()) },
