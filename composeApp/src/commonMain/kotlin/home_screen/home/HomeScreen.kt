@@ -164,7 +164,8 @@ class HomeScreen : Screen {
                                     showDetailScreen = false
                                     showDetailScreen = !showDetailScreen
                                 },
-                            elevation = 2.dp
+                            elevation = 10.dp,
+
                         ) {
                             Column(
                                 verticalArrangement = Arrangement.Center,
@@ -234,7 +235,7 @@ class HomeScreen : Screen {
                                     key = { selectedService -> selectedService?.id.toString() }
                                 ) { selectedService ->
                                     Card(
-                                        shape = RoundedCornerShape(15.dp),
+                                        shape = RoundedCornerShape(30.dp),
                                         modifier = Modifier
                                             .padding(8.dp)
                                             .fillMaxWidth()
@@ -242,7 +243,7 @@ class HomeScreen : Screen {
                                                 selectedPhoneIcon.value = selectedService?.innerInfo!!
                                                 navigator?.push(DetailScreen(selectedPIcon = MutableStateFlow(selectedPhoneIcon.value)))
                                             },
-                                        elevation = 2.dp
+                                        elevation = 10.dp
                                     ) {
                                         Column(
                                             verticalArrangement = Arrangement.Center,

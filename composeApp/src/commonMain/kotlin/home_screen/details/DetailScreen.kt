@@ -100,7 +100,7 @@ data class DetailScreen(
                                 selectedPitem.value = selectedPicon?.phoneInner!!
                                 showDetailScreen = !showDetailScreen
                             },
-                        elevation = 2.dp
+                        elevation = 10.dp
                     ) {
                         Column(
                             verticalArrangement = Arrangement.Center,

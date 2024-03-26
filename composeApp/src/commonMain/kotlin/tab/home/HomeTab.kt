@@ -17,7 +17,9 @@ object HomeTab : Tab {
     @Composable
     override fun Content() {
 
-        Navigator(HomeScreen()) { navigator ->
+        Navigator(
+            HomeScreen()
+        ) { navigator ->
             SlideTransition(navigator)
         }
     }
