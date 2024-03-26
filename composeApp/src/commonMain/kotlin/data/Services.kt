@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Services(
-    @SerialName("id")
-    val id: Int?,
+    @SerialName("_id")
+    val id: String?,
     @SerialName("image")
     val image: String?,
     @SerialName("inner_image")
