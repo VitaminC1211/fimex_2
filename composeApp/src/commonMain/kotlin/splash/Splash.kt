@@ -1,7 +1,6 @@
 package splash
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,15 +29,17 @@ class Splash : Screen{
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(if(isSystemInDarkTheme()) Color.DarkGray else Color.White),
+                .background(Color.Black),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
 //           LoaderAnimation(
 //               modifier = Modifier.size(400.dp)
-//               ,anim = R.
+//               ,R.raw.animation
 //           )
-            Text("Welcome to Fimex_clone")
+            Text("Welcome to Fimex_clone",
+                color = Color.White
+            )
         }
     }
     private @Composable

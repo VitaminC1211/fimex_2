@@ -161,6 +161,7 @@ class HomeScreen : Screen {
 //                                    val navigator = navigator
 //                                    navigator?.push(DetailScreen(productInfo = product.id.toString()))
                                     selectedServiceImages.value = service.innerImage!!
+                                    showDetailScreen = false
                                     showDetailScreen = !showDetailScreen
                                 },
                             elevation = 2.dp
