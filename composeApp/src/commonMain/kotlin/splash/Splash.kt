@@ -21,7 +21,7 @@ class Splash : Screen{
     override fun Content() {
         val navigator = LocalNavigator.current
         LaunchedEffect(key1 = true){
-            delay(3000)
+            delay(2000)
 
             navigator?.push(Onboarding())
         }

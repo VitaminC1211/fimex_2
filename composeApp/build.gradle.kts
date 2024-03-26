@@ -55,6 +55,7 @@ kotlin {
             implementation(libs.mvvm.core)
             implementation (libs.accompanist.pager)
 
+
             //lottie
             implementation (libs.lottie)
 
@@ -101,9 +102,5 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
     }
-}
-dependencies {
-    implementation(libs.androidx.material3.android)
-    implementation(libs.androidx.material)
 }
 

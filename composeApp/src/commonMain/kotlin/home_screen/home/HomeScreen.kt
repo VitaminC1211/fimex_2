@@ -40,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
@@ -72,10 +73,10 @@ class HomeScreen : Screen {
         BoxWithConstraints {
 
             val images = listOf(
-                "https://www.zdnet.com/a/img/resize/44ee30136face6dcb90fe8ed96dc180a3a41a878/2023/09/12/29be3e47-9f70-4dbe-aa37-58719088b48f/old-iphones-apple-store.jpg?auto=webp&width=1280",
-                "https://imageio.forbes.com/specials-images/imageserve/6578eb5f8e31d8383c4f069c/hands-with-smartphones/960x0.jpg?format=jpg&width=1440",
-                "https://www.zdnet.com/a/img/resize/cb913fdf4fb4a92b2baf2b50c2a93a1b20d3c142/2023/09/22/4117cf65-90cd-4d96-82f9-377ff2fe6198/iphone-15-optimized-charging-screen.jpg?auto=webp&width=1280",
-                "https://www.zdnet.com/a/img/resize/631dfd408a6c443445138394a03d2ff72f75b585/2024/03/04/1bbf5bb9-bde9-49c2-81b9-9a59d5e487ca/dsc09973-2.jpg?auto=webp&width=1280"
+                "https://innovativezoneindia.com/wp-content/uploads/2021/12/Xiaomi-12-Series.jpg",
+                "https://image.khaleejtimes.com/?uuid=5d46f0c2-9a46-5329-9f29-f66785c7615f&function=cropresize&type=preview&source=false&q=75&crop_w=0.99999&crop_h=0.99956&x=0&y=0&width=1500&height=844",
+                "https://www.trustedreviews.com/wp-content/uploads/sites/54/2024/02/Honor-Magic-6-Pro-review-3-1024x580.jpg",
+                "https://www.trustedreviews.com/wp-content/uploads/sites/54/2021/11/best-camera-phone-920x613.jpg"
             )
 
 
@@ -100,40 +101,50 @@ class HomeScreen : Screen {
 
                 var searchText by remember { mutableStateOf(TextFieldValue()) }
 
-                TextField(
-                    value = searchText,
-                    onValueChange = { searchText = it },
-                    placeholder = { Text("Search...") },
-                    colors = TextFieldDefaults.textFieldColors(
-                        cursorColor = Color.Gray, // Change cursor line color to black
-                        focusedIndicatorColor = Color.Transparent, // Remove focused indicator
-                        unfocusedIndicatorColor = Color.Transparent // Remove unfocused indicator
-                    ),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search Icon",
-                            tint = Color.Black // Set the color of the search icon to black
-                        )
-                    },
-                    shape = RoundedCornerShape(15.dp),
+                Card(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp)
-                        .height(50.dp)
-                )
+                        .height(50.dp),
+                    shape = RoundedCornerShape(15.dp),
+                    elevation = 20.dp
+                ){
+                    TextField(
+                        value = searchText,
+                        onValueChange = { searchText = it },
+                        placeholder = { Text("Search...") },
+                        colors = TextFieldDefaults.textFieldColors(
+                            cursorColor = Color.Gray, // Change cursor line color to black
+                            focusedIndicatorColor = Color.Transparent, // Remove focused indicator
+                            unfocusedIndicatorColor = Color.Transparent,
+                            backgroundColor = Color.White// Remove unfocused indicator
+                        ),
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search Icon",
+                                tint = Color.Black // Set the color of the search icon to black
+                            )
+                        },
+                        shape = RoundedCornerShape(15.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
+
 
                 LazyRow(
                     state = rememberLazyListState(),
-                    modifier = Modifier.fillMaxWidth().height(150.dp)
+                    modifier = Modifier.fillMaxWidth().height(120.dp)
                 ) {
                     itemsIndexed(images) { index, image ->
                         // You can display each image here
                         // For example:
+                        val roundedCornerShape = RoundedCornerShape(15.dp)
                         Image(
                             painter = rememberImagePainter(image),
                             contentDescription = null, // Add appropriate content description
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth().padding(10.dp).clip(shape = roundedCornerShape),
                         )
                     }
                 }
@@ -142,6 +153,7 @@ class HomeScreen : Screen {
                     columns = GridCells.Fixed(cols),
                     state = scrollState,
                     contentPadding = PaddingValues(16.dp),
+                    modifier = Modifier.fillMaxWidth().height(120.dp),
                 ) {
                     item(span = { GridItemSpan(cols) }) {
                         Column {
