@@ -99,7 +99,7 @@ data class DetailScreen(
                             .clickable {
                                 selectedPitem.value = selectedPicon?.phoneInner!!
                                 showDetailScreen = !showDetailScreen
-                                showDetailScreen = ture
+                                println("XXXXXXXXXXXXXXXXX$showDetailScreen")
                             },
                         elevation = 10.dp
                     ) {
@@ -121,7 +121,7 @@ data class DetailScreen(
             if (showDetailScreen) {
                 ModalBottomSheetLayout(
                     // Bottom sheet content
-                    sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded),
+                    sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.HalfExpanded),
                     sheetShape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp),
                     modifier = Modifier.fillMaxSize(),
                     sheetContent = {
@@ -191,7 +191,6 @@ data class DetailScreen(
                         )
                     }
                 ) {
-
                 }
             }
         }
