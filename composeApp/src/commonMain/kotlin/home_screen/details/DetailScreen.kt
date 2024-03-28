@@ -99,7 +99,7 @@ data class DetailScreen(
                             .clickable {
                                 selectedPitem.value = selectedPicon?.phoneInner!!
                                 showDetailScreen = !showDetailScreen
-                                showDetailScreen = false
+                                showDetailScreen = ture
                             },
                         elevation = 10.dp
                     ) {
