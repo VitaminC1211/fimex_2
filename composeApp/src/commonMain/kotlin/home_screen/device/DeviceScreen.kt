@@ -46,7 +46,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 data class DeviceScreen(
     val selectedService: MutableStateFlow<List<InnerImage?>> = MutableStateFlow(listOf()),
     val selectedPhoneIcon: MutableStateFlow<List<InnerInfo?>> = MutableStateFlow(listOf())
-
 ) : Screen {
 
     @Composable
