@@ -141,8 +141,7 @@ data class DetailScreen(
 
                 }
             }
-
-
+            
             if (PriceListFlag) {
                 ModalBottomSheetLayout(
                     // Bottom sheet content
