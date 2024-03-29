@@ -1,7 +1,9 @@
 package home_screen.details
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -52,6 +55,17 @@ data class DetailScreen(
 
 ) : Screen {
 
+    @Composable
+    fun DetailScreen() {
+        LazyColumn (
+            modifier = Modifier.height(150.dp)
+        ){
+            items(50) { i ->
+                Text("Row $i", Modifier.fillMaxWidth().padding(8.dp))
+            }
+        }
+    }
+
     @OptIn(ExperimentalMaterialApi::class)
     @Composable
     override fun Content() {
@@ -59,6 +73,7 @@ data class DetailScreen(
         var cols = 1
         val scrollState = rememberLazyGridState()
         var showDetailScreen by remember { mutableStateOf(false) }
+        var PriceListFlag by remember { mutableStateOf(false) }
         val navigator = LocalNavigator.current
 
         Scaffold(
@@ -84,7 +99,7 @@ data class DetailScreen(
             ) {
                 item(span = { GridItemSpan(cols) }) {
                     Column {
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(15.dp))
                     }
                 }
 
@@ -95,36 +110,47 @@ data class DetailScreen(
                         shape = RoundedCornerShape(15.dp),
                         modifier = Modifier
                             .padding(8.dp)
-                            .fillMaxWidth()
-                            .clickable {
-                                selectedPitem.value = selectedPicon?.phoneInner!!
-                                showDetailScreen = !showDetailScreen
-                                println("XXXXXXXXXXXXXXXXX$showDetailScreen")
-                            },
+                            .fillMaxWidth(),
+
                         elevation = 10.dp
                     ) {
                         Column(
                             verticalArrangement = Arrangement.Center,
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Text(
-                                selectedPicon?.text.toString(),
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                                modifier = Modifier.padding(10.dp).heightIn(min = 15.dp)
-                            )
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier.clickable {
+                                    selectedPitem.value = selectedPicon?.phoneInner!!
+                                    showDetailScreen = !showDetailScreen
+                                    println("XXXXXXXXXXXXXXXXX$showDetailScreen")
+                                }.fillMaxWidth(),
+                            ){
+                                Text(
+                                    selectedPicon?.text.toString(),
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis,
+                                    modifier = Modifier.padding(10.dp).heightIn(min = 15.dp)
+                                )
+                            }
+                            if(showDetailScreen){
+                                DetailScreen()
+                            }
                         }
                     }
+
                 }
             }
 
-            if (showDetailScreen) {
+
+            if (PriceListFlag) {
                 ModalBottomSheetLayout(
                     // Bottom sheet content
-                    sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.HalfExpanded),
+                    sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded),
                     sheetShape = RoundedCornerShape(topStart = 50.dp, topEnd = 50.dp),
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().animateContentSize(),
                     sheetContent = {
+
                         // Content of the bottom sheet
                         LazyVerticalGrid(
                             modifier = Modifier.padding(bottom = 70.dp, top = 30.dp),
@@ -191,6 +217,7 @@ data class DetailScreen(
                         )
                     }
                 ) {
+
                 }
             }
         }
